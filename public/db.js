@@ -7,11 +7,11 @@ request.onupgradeneeded = ({ target }) => {
   db.createObjectStore("reserve", { autoIncrement: true });
 };
 
-request.onerror = function ({ target }) {
+request.onerror = ({ target }) => {
   console.log(`Oops, ${target.errorCode}`);
 };
 
-request.onsuccess = function ({ target }) {
+request.onsuccess = ({ target }) => {
   console.log("Success");
   db = target.result;
 
@@ -25,7 +25,7 @@ function checkDatabase() {
 
   const transaction = db.transaction(["reserve"], "readwrite");
   const store = transaction.objectStore("reserve");
-  const getAll = storage.getAll();
+  const getAll = store.getAll();
 
   getAll.onsuccess = function () {
     if (getAll.result.length > 0) {
